@@ -1,10 +1,10 @@
 class SurveyData {
-  constructor(name = 'New Survey', question = '', choices = []) {
-    this.name = name;
-    this.questions = [];
+  constructor (name = 'New Survey', question = '', choices = []) {
+    this.name = name
+    this.questions = []
   }
 
-  newQuestion() {
+  newQuestion () {
     this.questions.push({
       text: '',
       choices: []

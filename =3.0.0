@@ -1,0 +1,13 @@
+- eslint node_modules/eslint-config-standard/node_modules/eslint
+- eslint-plugin-import node_modules/eslint-config-standard/node_modules/eslint-plugin-import
+- eslint node_modules/eslint-plugin-import/node_modules/eslint
+- eslint node_modules/eslint-plugin-node/node_modules/eslint
+- eslint node_modules/eslint-plugin-standard/node_modules/eslint
+survey-widget@0.1.0 /Users/misternu/Projects/survey-widget
+├── eslint@4.1.1 
+├── eslint-config-standard@10.2.1 
+├── eslint-plugin-import@2.6.1 
+├── eslint-plugin-node@5.1.0 
+├── eslint-plugin-promise@3.5.0 
+└── eslint-plugin-standard@3.0.1 
+
