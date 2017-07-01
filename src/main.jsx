@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import SurveyData from './survey_data'
 import SurveyList from './survey_list'
 import SurveyEditor from './survey_editor'
-import SurveyJSON from './survey_json'
+// import SurveyJSON from './survey_json'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Dialog from 'material-ui/Dialog'
 
 class Main extends Component {
   constructor (props) {
@@ -10,7 +12,8 @@ class Main extends Component {
     this.state = {
       surveyDatas: [],
       editing: false,
-      index: 0
+      index: 0,
+      open: false
     }
   }
 
@@ -55,10 +58,8 @@ class Main extends Component {
   }
 
   handleNewChoice (index) {
-    let number = this.state.surveyDatas[this.state.index].questions[index].choices.length + 1
-    let choiceString = 'choice ' + number.toString()
     this.changeSurveys(surveys => {
-      surveys[this.state.index].questions[index].choices.push(choiceString)
+      surveys[this.state.index].questions[index].choices.push('')
     })
   }
 
@@ -69,9 +70,11 @@ class Main extends Component {
   }
 
   handleNewSurvey () {
-    this.setState({ editing: true, index: (this.state.surveyDatas.length) })
+    let length = this.state.surveyDatas.length
+    this.setState({ editing: true, index: length })
+    let surveyName = 'Survey ' + (length + 1).toString()
     this.changeSurveys(surveys => {
-      surveys.push(new SurveyData('New Survey'))
+      surveys.push(new SurveyData(surveyName))
     })
   }
 
@@ -82,9 +85,21 @@ class Main extends Component {
     this.setState({editing: false})
   }
 
+  handleOpen () {
+    this.setState({open: true})
+  }
+
+  handleClose () {
+    this.setState({open: false})
+  }
+
   render () {
+    let string = ''
+    if (this.state.editing && this.state.surveyDatas[this.state.index]) {
+      string = JSON.stringify(this.state.surveyDatas[this.state.index], null, 4)
+    }
     return (
-      <div>
+      <MuiThemeProvider><div>
         <SurveyList
           surveys={this.state.surveyDatas}
           editing={this.state.editing}
@@ -103,12 +118,18 @@ class Main extends Component {
           handleChoiceChange={(event, qIndex, cIndex) => { this.handleChoiceChange(event, qIndex, cIndex) }}
           handleNewChoice={(index) => { this.handleNewChoice(index) }}
           handleDeleteChoice={(qIndex, cIndex) => { this.handleDeleteChoice(qIndex, cIndex) }}
+          handleOpen={() => { this.handleOpen() }}
         />
-        <SurveyJSON
-          editing={this.state.editing}
-          survey={this.state.surveyDatas[this.state.index]}
-        />
-      </div>
+        <Dialog
+          title='JSON data:'
+          open={this.state.open}
+          onRequestClose={() => { this.handleClose() }}
+        >
+          <div style={{whiteSpace: 'pre'}}>
+            {string}
+          </div>
+        </Dialog>
+      </div></MuiThemeProvider>
     )
   }
 }

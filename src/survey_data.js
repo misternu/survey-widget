@@ -7,7 +7,7 @@ class SurveyData {
   newQuestion () {
     this.questions.push({
       text: '',
-      choices: []
+      choices: ['']
     })
   }
 }
