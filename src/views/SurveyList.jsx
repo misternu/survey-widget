@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {List, ListItem, makeSelectable} from 'material-ui/List'
 import Card from 'material-ui/Card'
+import {List, ListItem, makeSelectable} from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
@@ -11,11 +11,8 @@ let SelectableList = makeSelectable(List)
 const SurveyList = props => {
   let surveys = props.surveys.map((survey, index) => {
     return (
-      <ListItem
-        key={index}
-        value={index}
-        onClick={() => { props.startEdit(index) }}>
-        {survey.name}
+      <ListItem key={index} value={index} onClick={() => { props.onSelectSurvey(index) }}>
+        {survey.get('name')}
       </ListItem>
     )
   })
@@ -24,12 +21,12 @@ const SurveyList = props => {
     float: 'left',
     margin: '20px'
   }
-  let selection = props.editing ? props.index : null
+  let selection = props.edit.get('editing') ? props.edit.get('index') : null
   return (
     <Card style={cardStyle}>
       <SelectableList value={selection}>
         <FloatingActionButton
-          onClick={props.handleNewSurvey}
+          onClick={props.onAddSurvey}
           style={{float: 'right', 'marginRight': '20px'}}
           mini>
           <ContentAdd />
@@ -42,10 +39,9 @@ const SurveyList = props => {
 }
 
 SurveyList.propTypes = {
-  surveys: PropTypes.array,
-  index: PropTypes.number,
-  editing: PropTypes.bool,
-  handleNewSurvey: PropTypes.func
+  surveys: PropTypes.object,
+  edit: PropTypes.object,
+  onAddSurvey: PropTypes.func
 }
 
 export default SurveyList
