@@ -91,6 +91,13 @@ const Actions = {
     SurveyDispatcher.dispatch({
       type: SurveyActionTypes.CLOSE_DIALOG
     })
+  },
+
+  loadSurveys (surveys) {
+    SurveyDispatcher.dispatch({
+      type: SurveyActionTypes.LOAD_SURVEYS,
+      surveys: surveys
+    })
   }
 }
 

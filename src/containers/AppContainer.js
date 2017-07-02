@@ -27,7 +27,8 @@ function getState () {
     onDeleteChoice: SurveyActions.deleteChoice,
     onChangeChoice: SurveyActions.changeChoice,
     onOpenDialog: SurveyActions.openDialog,
-    onCloseDialog: SurveyActions.closeDialog
+    onCloseDialog: SurveyActions.closeDialog,
+    onLoadSurveys: SurveyActions.loadSurveys
   }
 }
 
